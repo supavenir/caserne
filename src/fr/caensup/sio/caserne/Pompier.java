@@ -8,8 +8,20 @@ public class Pompier {
 	private int age;
 	private String nom;
 	private String prenom;
+	private Caserne laCaserne;
 
 	public Pompier(String matricule) {
+		this(matricule, "", "", 0);
+	}
+
+	public Pompier(String matricule, String nom, String prenom) {
+		this(matricule, nom, prenom, 0);
+	}
+
+	public Pompier(String matricule, String nom, String prenom, int age) {
+		this.age = age;
+		this.prenom = prenom;
+		this.nom = nom;
 		this.matricule = PREFIX + "_" + matricule;
 		Pompier.count++;
 	}
@@ -48,7 +60,24 @@ public class Pompier {
 		System.out.println(matricule);
 	}
 
+	public void setCaserne(Caserne uneCaserne) {
+		this.laCaserne = uneCaserne;
+	}
+
+	public void affecter(Caserne caserne) {
+		caserne.affecter(this);
+	}
+
 	public static void afficherCount() {
 		System.out.println(count + " pompier(s) instancié(s)");
+	}
+
+	@Override
+	public String toString() {
+		String s = this.matricule + " - " + this.nom + " " + this.prenom + "(" + this.age + ")";
+		if (laCaserne != null) {
+			s += "\nAffectation : " + laCaserne;
+		}
+		return s;
 	}
 }
