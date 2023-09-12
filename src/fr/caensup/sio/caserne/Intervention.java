@@ -2,7 +2,6 @@ package fr.caensup.sio.caserne;
 
 import java.time.LocalDateTime;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 public class Intervention {
@@ -22,7 +21,11 @@ public class Intervention {
 	}
 
 	public void ajouterPompier(Pompier... pompiers) {
-		this.pompiers.addAll(List.of(pompiers));
+		for (Pompier p : pompiers) {
+			if (p.getLaCaserne().equals(caserne)) {
+				this.pompiers.add(p);
+			}
+		}
 	}
 
 	public String toString() {

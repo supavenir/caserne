@@ -70,4 +70,9 @@ public class Caserne {
 		return this.nom.equals(oCaserne.nom) && this.ville.equals(oCaserne.ville);
 	}
 
+	@Override
+	public int hashCode() {
+		return this.toString().hashCode();
+	}
+
 }

@@ -78,8 +78,9 @@ public class Pompier {
 		return laCaserne;
 	}
 
-	public void affecter(Caserne caserne) {
+	public Pompier affecter(Caserne caserne) {
 		caserne.affecter(this);
+		return this;
 	}
 
 	public static void afficherCount() {
