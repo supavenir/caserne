@@ -7,6 +7,7 @@ public class Caserne {
 	private String nom;
 	private String ville;
 	private List<Pompier> lesPompiers;
+	private List<Intervention> interventions;
 
 	public Caserne(String ville) {
 		this("Caserne", ville);
@@ -16,6 +17,7 @@ public class Caserne {
 		this.nom = nom;
 		this.ville = ville;
 		this.lesPompiers = new ArrayList<>();
+		this.interventions = new ArrayList<>();
 	}
 
 	public void setNom(String nom) {
@@ -47,9 +49,25 @@ public class Caserne {
 		return lesPompiers.size();
 	}
 
+	public List<Intervention> getInterventions() {
+		return interventions;
+	}
+
 	@Override
 	public String toString() {
 		return nom + " de " + ville;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Caserne)) {
+			return false;
+		}
+		Caserne oCaserne = (Caserne) obj;
+		return this.nom.equals(oCaserne.nom) && this.ville.equals(oCaserne.ville);
 	}
 
 }

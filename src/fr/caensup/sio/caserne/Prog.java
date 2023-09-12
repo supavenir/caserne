@@ -1,36 +1,42 @@
 package fr.caensup.sio.caserne;
 
+import java.time.LocalDateTime;
+
+import fr.caensup.sio.caserne.exceptions.EmptyMatriculeException;
+
 public class Prog {
 
 	public static void main(String[] args) {
-		Pompier.afficherCount();
-		Pompier p1 = new Pompier("ZBRE112VBQ");
-		p1.setNom("DUPONT");
-		p1.setPrenom("Paul");
-		p1.setAge(22);
-		p1.afficher();
-		new Pompier("SERT A RIEN");
-		Pompier.afficherCount();
-		System.out.println(p1.getMatricule());
-		p1.setAge(140);
+		// Pompier.afficherCount();
+		try {
+			Pompier p1 = new Pompier("ZBRE112VBQ");
+			p1.setNom("DUPONT");
+			p1.setPrenom("Paul");
+			p1.setAge(22);
+			// p1.afficher();
+			new Pompier("SERT A RIEN");
+			// Pompier.afficherCount();
 
-		Caserne cas = new Caserne("Toulouse");
-		System.out.println(cas);
+			p1.setAge(140);
 
-		Pompier p2 = new Pompier("QSFJONQ", "nom", "prenom");
+			Caserne cas = new Caserne("Toulouse");
 
-		Pompier p3 = new Pompier("GOIZGJS", "Jean", "Laurent", 45);
+			Pompier p2 = new Pompier("QSFJONQ", "nom", "prenom");
 
-		System.out.println(cas.countPompier());
+			Pompier p3 = new Pompier("GOIZGJS", "Jean", "Laurent", 45);
 
-		p1.affecter(cas);
-		cas.affecter(p2);
-		p3.affecter(cas);
+			p1.affecter(cas);
+			cas.affecter(p2);
+			p3.affecter(cas);
 
-		System.out.println(p1);
-		System.out.println(p2);
-		System.out.println(p3);
-		System.out.println(cas.countPompier());
+			Intervention I1 = new Intervention(LocalDateTime.now());
+			I1.ajouterPompier(p1, p2, p3, p1, new Pompier("GOIZGJS", "Jean", "Laurent", 45));
+
+			System.out.println(I1.toString());
+			new Pompier("");
+		} catch (EmptyMatriculeException e) {
+			System.out.println("Pompier sans matricule !");
+		}
 
 	}
 

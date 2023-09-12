@@ -1,5 +1,7 @@
 package fr.caensup.sio.caserne;
 
+import fr.caensup.sio.caserne.exceptions.EmptyMatriculeException;
+
 public class Pompier {
 
 	public static final String PREFIX = "POMP";
@@ -10,20 +12,28 @@ public class Pompier {
 	private String prenom;
 	private Caserne laCaserne;
 
-	public Pompier(String matricule) {
+	public Pompier(String matricule) throws EmptyMatriculeException {
 		this(matricule, "", "", 0);
 	}
 
-	public Pompier(String matricule, String nom, String prenom) {
+	public Pompier(String matricule, String nom, String prenom) throws EmptyMatriculeException {
 		this(matricule, nom, prenom, 0);
 	}
 
-	public Pompier(String matricule, String nom, String prenom, int age) {
+	public Pompier(String matricule, String nom, String prenom, int age) throws EmptyMatriculeException {
 		this.age = age;
 		this.prenom = prenom;
 		this.nom = nom;
-		this.matricule = PREFIX + "_" + matricule;
+		setMatricule(matricule);
 		Pompier.count++;
+	}
+
+	public void setMatricule(String matricule) throws EmptyMatriculeException {
+		if (matricule != null && !"".equals(matricule)) {
+			this.matricule = PREFIX + "_" + matricule;
+			return;
+		}
+		throw new EmptyMatriculeException();
 	}
 
 	public String getMatricule() {
@@ -64,6 +74,10 @@ public class Pompier {
 		this.laCaserne = uneCaserne;
 	}
 
+	public Caserne getLaCaserne() {
+		return laCaserne;
+	}
+
 	public void affecter(Caserne caserne) {
 		caserne.affecter(this);
 	}
@@ -79,5 +93,21 @@ public class Pompier {
 			s += "\nAffectation : " + laCaserne;
 		}
 		return s;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
+		if (!(obj instanceof Pompier)) {
+			return false;
+		}
+		return this.matricule.equals(((Pompier) obj).matricule);
+	}
+
+	@Override
+	public int hashCode() {
+		return this.matricule.hashCode();
 	}
 }
